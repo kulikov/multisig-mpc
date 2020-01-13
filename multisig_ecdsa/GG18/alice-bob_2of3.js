@@ -110,7 +110,7 @@ console.log("[Pay to the multi-sig addr]\n");
 //  alicePubkey ->             ->
 //              <-   bobPubkey ->
 //              <-             <-   carolPubkey
-//  
+//
 const alicePubkey = ec.keyFromPrivate(alicePrvkey.value.toString(16)).getPublic();
 const bobPubkey = ec.keyFromPrivate(bobPrvkey.value.toString(16)).getPublic();
 const carolPubkey = ec.keyFromPrivate(carolPrvkey.value.toString(16)).getPublic();
@@ -343,12 +343,12 @@ function hDash(pubkey){
 
 // transform m to e by LSB
 function lsbToStr(m){
-    let mHex = new BN(sha256.create().update(m).hex());
+    let mHex = new BN(sha256.create().update(m).hex(), 16);
     let delta = mHex.byteLength() * 8 - ec.n.bitLength();
     return mHex.ushrn(delta > 0 ? delta : 0).toString(16);
 };
 function lsbToInt(m){
-    let mHex = new BN(sha256.create().update(m).hex());
+    let mHex = new BN(sha256.create().update(m).hex(), 16);
     let delta = mHex.byteLength() * 8 - ec.n.bitLength();
     return bigInt(mHex.ushrn(delta > 0 ? delta : 0).toString(16), 16);
 };

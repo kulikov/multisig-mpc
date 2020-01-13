@@ -8,9 +8,8 @@ const sha256 = require("js-sha256");
 
 
 
-
-
 const order = bigInt(ec.n.toString());
+
 
 //////////////
 //
@@ -34,9 +33,18 @@ console.log("[Each players setups 2-of-3 multisig and send shares to Alice, Bob 
 // Alice            Bob            Carol
 //  alicePrvkey      bobPrvkey      carolPrvkey
 //
-const alicePrvkey = bigInt(randomBytes(32).toString('hex'), 16);
-const bobPrvkey = bigInt(randomBytes(32).toString('hex'), 16);
-const carolPrvkey = bigInt(randomBytes(32).toString('hex'), 16);
+const alicePrvkeyHex = randomBytes(32).toString('hex');
+const bobPrvkeyHex = randomBytes(32).toString('hex');
+const carolPrvkeyHex = randomBytes(32).toString('hex');
+
+console.log('alice private: ', alicePrvkeyHex, '\n---\n');
+console.log('bob private: ', bobPrvkeyHex, '\n---\n');
+console.log('carol private: ', carolPrvkeyHex, '\n---\n');
+
+
+const alicePrvkey = bigInt(alicePrvkeyHex, 16);
+const bobPrvkey = bigInt(bobPrvkeyHex, 16);
+const carolPrvkey = bigInt(carolPrvkeyHex, 16);
 
 
 //
@@ -121,7 +129,8 @@ const carolPubkey = ec.keyFromPrivate(carolPrvkey.value.toString(16)).getPublic(
 
 const multiPubkey = alicePubkey.add(bobPubkey).add(carolPubkey);
 console.log("multisig publickey:");
-console.log(multiPubkey);
+console.log(multiPubkey.hex());
+
 
 
 // Preprocessing
